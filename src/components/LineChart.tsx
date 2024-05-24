@@ -1,0 +1,131 @@
+import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line, Legend, Rectangle } from "recharts"
+import { useState, useEffect } from "react"
+
+const BASE_URL = 'http://localhost:3000'
+
+const daysMap: { [key: number]: string } = {
+    1: 'L',
+    2: 'M',
+    3: 'M',
+    4: 'J',
+    5: 'V',
+    6: 'S',
+    7: 'D'
+};
+
+type Sessions = {
+    day: number;
+    sessionLength: number
+};
+
+type UserData = {
+    userId: number;
+    sessions: Sessions[]
+};
+
+type LineChartComponentProps = {
+    userId: number;
+}
+
+export function LineChartComponent({ userId }: LineChartComponentProps) {
+    const [data, setData] = useState<UserData | null>(null)
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/user/${userId}/average-sessions`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                setData(result.data);
+            } catch (error: any) {
+                setError(error);
+            } finally {
+                setIsLoading(false)
+            }
+        };
+
+        fetchData();
+    }, [userId]);
+
+    if (isLoading) {
+        return <div>Chargement...</div>;
+    }
+
+    if (error) {
+        return <div>Oups! Quelque chose n'a pas fonctionné!</div>
+    }
+
+    if (!data) {
+        return <div>Aucune donnée trouvée</div>;
+    }
+
+    const sessionWithLetters = data.sessions.map(session => ({
+        ...session,
+        day: daysMap[session.day]
+    }))
+
+    return (
+        <ResponsiveContainer width="100%" height="100%">
+            <LineChart width={500} height={400} data={sessionWithLetters} margin={{
+                top: 25,
+                right: 20,
+                left: 20,
+                bottom: 15,
+            }}>
+                <XAxis dataKey="day" stroke="#fff" />
+                <Legend content={renderLegend} />
+                <Tooltip content={<CustomTooltip />} cursor={<CustomCursor points={[{ x: 0, y: 0 }, { x: 0, y: 0 }]} width={500} height={400} stroke="#ff0000" />} />
+
+                <Line dataKey='sessionLength' type="monotone" stroke="#ffffff" strokeWidth={2} />
+            </LineChart>
+        </ResponsiveContainer>
+    );
+};
+
+const renderLegend = () => {
+    return <p className="chart_title">Durée moyenne des <br /> sessions</p>
+}
+
+type CustomTooltipProps = {
+    active?: boolean;
+    payload?: { value: number }[];
+    label?: string;
+};
+
+const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="tooltip">
+                <p className="tooltip_content">{`${payload[0].value} min`}</p>
+            </div>
+        );
+    }
+    return null;
+};
+
+type CustomCursorProps = {
+    points: { x: number, y: number }[];
+    width: number;
+    height: number;
+    stroke: string;
+};
+
+// Est-ce qu'on a vraiment besoin des props ici?
+const CustomCursor = ({ points, width, height, stroke }: CustomCursorProps) => {
+    const { x, y } = points[0];
+    return (
+        <Rectangle
+            fill="#000"
+            stroke={stroke}
+            x={x}
+            y={y}
+            width={width}
+            height={height}
+            fillOpacity={0.1}
+        />
+    );
+};

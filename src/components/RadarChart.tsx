@@ -1,0 +1,75 @@
+import { useEffect, useState } from "react";
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart, ResponsiveContainer } from "recharts";
+
+const BASE_URL = 'http://localhost:3000'
+
+type Kinds = {
+    [key: number]: string; 
+}
+
+type Data = {
+    value: number,
+    kind: number
+}
+
+type UserData = {
+    userId: number;
+    kind: Kinds;
+    data: Data[];
+};
+
+type RadarChartComponentProps = {
+    userId: number;
+}
+
+export function RadarChartComponent({ userId }: RadarChartComponentProps) {
+    const [data, setData] = useState<UserData | null>(null)
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/user/${userId}/performance`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                setData(result.data);
+            } catch (error: any) {
+                setError(error);
+            } finally {
+                setIsLoading(false)
+            }
+        };
+
+        fetchData();
+    }, [userId]);
+
+    if (isLoading) {
+        return <div>Chargement...</div>;
+    }
+
+    if (error) {
+        return <div>Oups! Quelque chose n'a pas fonctionné!</div>
+    }
+
+    if (!data) {
+        return <div>Aucune donnée trouvée</div>;
+    }
+
+    const convertedData = data.data.map(item => ({
+        value: item.value,
+        kind: data.kind[item.kind].charAt(0).toUpperCase() + data.kind[item.kind].slice(1)
+    }));
+
+    return (
+        <ResponsiveContainer width="100%" height="100%">
+            <RadarChart cx="50%" cy="50%" outerRadius="70%" data={convertedData}>
+                <PolarGrid gridType="polygon" radialLines={false}/>
+                <PolarAngleAxis dataKey="kind" stroke="#fff"/>
+                <Radar dataKey="value" fill="#ff0101" fillOpacity={0.7} />
+            </RadarChart>
+        </ResponsiveContainer>
+    )
+}
