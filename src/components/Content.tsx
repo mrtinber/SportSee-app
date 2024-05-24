@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { LineChartComponent } from "./LineChart";
 import { RadarChartComponent } from "./RadarChart";
+import { Aside } from "./Aside";
 
 const BASE_URL = 'http://localhost:3000'
 
@@ -77,11 +78,21 @@ export function Content() {
             <p>Félicitations! Vous avez explosé vos objectifs hier 👏</p>
             <button onClick={handleChangeUser}>Changer d'utilisateur</button>
         </div>
-        <div className="chart">
-            <LineChartComponent userId={userId} />
-        </div>
-        <div className="chart_performance">
-            <RadarChartComponent userId={userId} />
+        <div className="content_container">
+            <div className="content_container_charts">
+                <div className="chart">
+                    <LineChartComponent userId={userId} />
+                </div>
+                <div className="chart_performance">
+                    <RadarChartComponent userId={userId} />
+                </div>
+            </div>
+            <Aside
+                calories={data.keyData.calorieCount}
+                proteins={data.keyData.proteinCount}
+                carbs={data.keyData.carbohydrateCount}
+                lipids={data.keyData.lipidCount}
+            />
         </div>
     </div>
 }

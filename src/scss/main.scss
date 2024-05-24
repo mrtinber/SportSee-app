@@ -56,6 +56,9 @@ main {
     .content {
         padding: 70px 110px;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
 
         .content_welcome {
             display: flex;
@@ -71,6 +74,16 @@ main {
                 font-size: 18px;
             }
         }
+    }
+}
+
+.content_container{
+    display: flex;
+    justify-content: space-between;
+    &_charts{
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
     }
 }
 
@@ -135,5 +148,31 @@ main {
     }
     line.angleAxis{
         display: none;
+    }
+}
+
+aside{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    .aside_container{
+        width: 258px;
+        height: 124px;
+        background: #fbfbfb;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 32px;
+        &_text{
+            text-align: left;
+            h2{
+                font-size: 20px;
+            }
+            h3{
+                font-size: 14px;
+                color: #74798C;
+            }
+        }
     }
 }
