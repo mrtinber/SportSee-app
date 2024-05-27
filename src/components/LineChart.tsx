@@ -87,7 +87,7 @@ export function LineChartComponent({ userId }: LineChartComponentProps) {
 };
 
 const renderLegend = () => {
-    return <p className="chart_title">Durée moyenne des <br /> sessions</p>
+    return <p className="chart_average_title">Durée moyenne des <br /> sessions</p>
 }
 
 type CustomTooltipProps = {

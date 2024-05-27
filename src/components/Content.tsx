@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { LineChartComponent } from "./LineChart";
 import { RadarChartComponent } from "./RadarChart";
 import { Aside } from "./Aside";
+import { BarChartComponent } from "./BarChart";
+import { RadialChartComponent } from "./RadialChart";
 
 const BASE_URL = 'http://localhost:3000'
 
@@ -74,17 +76,25 @@ export function Content() {
 
     return <div className="content">
         <div className='content_welcome'>
-            <h1>Bonjour {data.userInfos.firstName}</h1>
+            <h1>Bonjour <span>{data.userInfos.firstName}</span></h1>
             <p>Félicitations! Vous avez explosé vos objectifs hier 👏</p>
             <button onClick={handleChangeUser}>Changer d'utilisateur</button>
         </div>
         <div className="content_container">
             <div className="content_container_charts">
-                <div className="chart">
-                    <LineChartComponent userId={userId} />
+                <div className="content_container_charts_activity">
+                    <BarChartComponent userId={userId} />
                 </div>
-                <div className="chart_performance">
-                    <RadarChartComponent userId={userId} />
+                <div className="content_container_charts_row">
+                    <div className="chart_average">
+                        <LineChartComponent userId={userId} />
+                    </div>
+                    <div className="chart_performance">
+                        <RadarChartComponent userId={userId} />
+                    </div>
+                    <div className="chart_score">
+                        <RadialChartComponent todayScore={data.todayScore} />
+                    </div>
                 </div>
             </div>
             <Aside

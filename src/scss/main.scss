@@ -27,6 +27,7 @@ nav {
 main {
     width: 100%;
     display: flex;
+    flex-direction: row;
 
     .sidebar {
         width: 117px;
@@ -36,6 +37,7 @@ main {
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+        // flex: 1;
 
         &_nav {
             width: 100%;
@@ -70,6 +72,10 @@ main {
                 font-weight: 500;
             }
 
+            span{
+                color: #ff0101;
+            }
+
             p {
                 font-size: 18px;
             }
@@ -77,17 +83,55 @@ main {
     }
 }
 
-.content_container{
+.content_container {
     display: flex;
     justify-content: space-between;
-    &_charts{
+
+    &_charts {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 30px;
+
+        &_row {
+            display: flex;
+            gap: 30px;
+            height: 320px;
+            width: 100%;
+        }
     }
 }
 
-.chart {
+.content_container_charts {
+    &_activity {
+        background-color: #fbfbfb;
+        border-radius: 5px;
+        padding: 24px 32px;
+        height: 320px;
+        width: 100%;
+
+        .tooltip {
+            background: #e60000;
+            padding: 10px 7px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            &_content {
+                color: white;
+                font-size: 8px;
+                font-family: 'Roboto', sans-serif;
+            }
+        }
+
+        ul {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            color: #74798C !important;
+        }
+    }
+}
+
+.chart_average {
     height: 263px;
     width: 258px;
     background: #ff0000;
@@ -99,6 +143,7 @@ main {
         padding: 8px;
 
         &_content {
+            color: black;
             font-size: 8px;
             font-weight: 500;
             font-family: 'Roboto', sans-serif;
@@ -109,7 +154,7 @@ main {
         position: static !important;
     }
 
-    .recharts-line-dot{
+    .recharts-line-dot {
         display: none;
     }
 
@@ -122,41 +167,54 @@ main {
         left: 15px;
     }
 
-    .recharts-cartesian-axis-tick-value{
+    .recharts-cartesian-axis-tick-value {
         font-size: 12px;
         color: white;
-        opacity: 0.5; 
+        opacity: 0.5;
         font-weight: 500;
         z-index: 2000 !important;
     }
-    .recharts-cartesian-axis-line, .recharts-cartesian-axis-tick-line{
+
+    .recharts-cartesian-axis-line,
+    .recharts-cartesian-axis-tick-line {
         display: none;
     }
 }
 
-.chart_performance{
+.chart_performance {
     background: #282D30;
     height: 263px;
     width: 258px;
     border-radius: 5px;
     position: relative;
     padding: 10px;
-    .recharts-polar-angle-axis-tick-value{
+
+    .recharts-polar-angle-axis-tick-value {
         font-size: 12px;
         font-weight: 500;
         padding-top: 50px;
     }
-    line.angleAxis{
+
+    line.angleAxis {
         display: none;
     }
 }
 
-aside{
+.chart_score{
+    height: 263px;
+    width: 258px;
+    background: #fbfbfb;
+    border-radius: 5px;
+}
+
+aside {
     display: flex;
     flex-direction: column;
     gap: 40px;
-    .aside_container{
-        width: 258px;
+    width: 258px;
+
+    .aside_container {
+        width: 100%;
         height: 124px;
         background: #fbfbfb;
         border-radius: 5px;
@@ -164,12 +222,15 @@ aside{
         align-items: center;
         gap: 24px;
         padding: 32px;
-        &_text{
+
+        &_text {
             text-align: left;
-            h2{
+
+            h2 {
                 font-size: 20px;
             }
-            h3{
+
+            h3 {
                 font-size: 14px;
                 color: #74798C;
             }
