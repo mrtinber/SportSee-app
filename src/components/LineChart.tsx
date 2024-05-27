@@ -77,7 +77,7 @@ export function LineChartComponent({ userId }: LineChartComponentProps) {
                 bottom: 15,
             }}>
                 <XAxis dataKey="day" stroke="#fff" axisLine={false} tickLine={false} />
-                <YAxis hide domain={[0, 'dataMax + 10']}/>
+                <YAxis hide domain={[0, 'dataMax + 20']}/>
                 <Legend content={renderLegend} />
                 <Tooltip content={<CustomTooltip />} cursor={<CustomCursor points={[{ x: 0, y: 0 }, { x: 0, y: 0 }]} width={500} height={400} stroke="#ff0000" />} />
 

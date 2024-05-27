@@ -78,6 +78,15 @@ main {
             p {
                 font-size: 18px;
             }
+
+            button{
+                border-radius: 25px;
+                width: 100px;
+                border: none;
+                background-color: #e60000;
+                color: white;
+                font-weight: 500;
+            }
         }
     }
 }
@@ -119,10 +128,27 @@ main {
                 }
             }
 
+            .recharts-tooltip-cursor{
+                opacity: 0.5;
+            }
+
             ul {
                 font-family: 'Roboto', sans-serif;
                 font-weight: 500;
-                color: #74798C !important;
+                font-size: 14px;
+
+                li {
+                    span {
+                        color: #74798C !important;
+                    }
+                }
+            }
+
+            &_title{
+                position: absolute;
+                font-size: 15px;
+                color: #20253A;
+                font-weight: 500;
             }
         }
     }
@@ -208,6 +234,34 @@ main {
         position: absolute;
         top: 15px;
         left: 15px;
+    }
+
+    &_info {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 50%;
+        width: 150px;
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+            text-align: center;
+            color: #74798C;
+            font-size: 16px;
+            font-weight: 500;
+            width: 80px;
+
+            span {
+                font-size: 26px;
+                color: #282D30;
+                font-weight: 700;
+            }
+        }
     }
 }
 

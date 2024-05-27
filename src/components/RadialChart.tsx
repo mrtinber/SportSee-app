@@ -11,6 +11,7 @@ export function RadialChartComponent({ todayScore }: RadialChartComponentProps) 
     console.log(chartData)
 
     return (
+        <>
         <ResponsiveContainer width="100%" height="100%">
             <RadialBarChart width={730}
                 height={250}
@@ -26,6 +27,10 @@ export function RadialChartComponent({ todayScore }: RadialChartComponentProps) 
 
             </RadialBarChart>
         </ResponsiveContainer>
+        <div className="chart_score_info">
+            <p><span>{chartData[0].uv}% </span> <br/> de votre objectif</p>
+        </div>
+        </>
     )
 }
 
