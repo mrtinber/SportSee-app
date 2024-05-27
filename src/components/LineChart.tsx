@@ -1,4 +1,4 @@
-import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line, Legend, Rectangle } from "recharts"
+import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line, Legend, Rectangle, YAxis } from "recharts"
 import { useState, useEffect } from "react"
 
 const BASE_URL = 'http://localhost:3000'
@@ -71,16 +71,17 @@ export function LineChartComponent({ userId }: LineChartComponentProps) {
     return (
         <ResponsiveContainer width="100%" height="100%">
             <LineChart width={500} height={400} data={sessionWithLetters} margin={{
-                top: 25,
+                top: 0,
                 right: 20,
                 left: 20,
                 bottom: 15,
             }}>
-                <XAxis dataKey="day" stroke="#fff" />
+                <XAxis dataKey="day" stroke="#fff" axisLine={false} tickLine={false} />
+                <YAxis hide domain={[0, 'dataMax + 10']}/>
                 <Legend content={renderLegend} />
                 <Tooltip content={<CustomTooltip />} cursor={<CustomCursor points={[{ x: 0, y: 0 }, { x: 0, y: 0 }]} width={500} height={400} stroke="#ff0000" />} />
 
-                <Line dataKey='sessionLength' type="monotone" stroke="#ffffff" strokeWidth={2} />
+                <Line dataKey='sessionLength' type="monotone" stroke="#ffffff" strokeWidth={2} dot={false}/>
             </LineChart>
         </ResponsiveContainer>
     );

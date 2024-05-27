@@ -23,8 +23,13 @@ type KeyData = {
 type UserData = {
     id: number;
     userInfos: UserInfos;
-    todayScore: number;
+    todayScore?: number;
+    score?: number;
     keyData: KeyData;
+};
+
+const normalizeScore = (data: UserData): number => {
+    return data.todayScore !== undefined ? data.todayScore : data.score !== undefined ? data.score : 0;
 };
 
 export function Content() {
@@ -33,10 +38,11 @@ export function Content() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
 
+    
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true)
-
+            
             try {
                 const response = await fetch(`${BASE_URL}/user/${userId}`);
                 if (!response.ok) {
@@ -50,22 +56,22 @@ export function Content() {
                 setIsLoading(false)
             }
         };
-
+        
         fetchData();
     }, [userId]);
-
+    
     if (isLoading) {
         return <div>Chargement...</div>;
     }
-
+    
     if (error) {
         return <div>Oups! Quelque chose n'a pas fonctionné!</div>
     }
-
+    
     if (!data) {
         return <div>Aucune donnée trouvée</div>;
     }
-
+    
     function handleChangeUser() {
         if (userId === 12) {
             setUserId(18);
@@ -73,6 +79,8 @@ export function Content() {
             setUserId(12);
         }
     };
+
+    const normalizedScore = normalizeScore(data)
 
     return <div className="content">
         <div className='content_welcome'>
@@ -93,7 +101,7 @@ export function Content() {
                         <RadarChartComponent userId={userId} />
                     </div>
                     <div className="chart_score">
-                        <RadialChartComponent todayScore={data.todayScore} />
+                        <RadialChartComponent todayScore={normalizedScore} />
                     </div>
                 </div>
             </div>
