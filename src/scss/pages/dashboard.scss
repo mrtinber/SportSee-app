@@ -1,0 +1,135 @@
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .content {
+        padding: 70px 110px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .content_welcome {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+
+            h1 {
+                font-size: 48px;
+                font-weight: 500;
+            }
+
+            span {
+                color: $red-txt;
+            }
+
+            p {
+                font-size: 18px;
+            }
+
+            button {
+                border-radius: 25px;
+                width: 100px;
+                border: none;
+                background-color: $red-bg;
+                color: white;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.content_container {
+    display: flex;
+    justify-content: space-between;
+
+    &_charts {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        &_row {
+            display: flex;
+            gap: 30px;
+            height: 320px;
+            width: 100%;
+        }
+
+        &_activity {
+            background-color: $grey-bg;
+            border-radius: 5px;
+            padding: 24px 32px;
+            height: 320px;
+            width: 100%;
+
+            .tooltip {
+                background: $red-bg;
+                padding: 10px 7px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                &_content {
+                    color: white;
+                    font-size: 8px;
+                    font-family: 'Roboto', sans-serif;
+                }
+            }
+
+            .recharts-tooltip-cursor {
+                opacity: 0.5;
+            }
+
+            ul {
+                font-family: 'Roboto', sans-serif;
+                font-weight: 500;
+                font-size: 14px;
+
+                li {
+                    span {
+                        color: $grey-txt !important;
+                    }
+                }
+            }
+
+            &_title {
+                position: absolute;
+                font-size: 15px;
+                color: $darkblue-txt;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+aside {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 258px;
+
+    .aside_container {
+        width: 100%;
+        height: 124px;
+        background: $grey-bg;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 32px;
+
+        &_text {
+            text-align: left;
+
+            h2 {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 14px;
+                color: $grey-txt;
+            }
+        }
+    }
+}

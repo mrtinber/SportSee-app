@@ -1,33 +1,22 @@
 import { useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { getActivity } from "../../usecases/getActivity";
+import { UserActivity } from "../../variables/types";
 
 type BarChartComponentProps = {
     userId: number;
 }
 
-type Sessions = {
-    day: string;
-    kilogram: number;
-    calories: number;
-}
-
-
-type UserData = {
-    userId: number;
-    sessions: Sessions[];
-};
-
 export function BarChartComponent({ userId }: BarChartComponentProps) {
-    const [data, setData] = useState<UserData | null>(null)
+    const [data, setData] = useState<UserActivity | null>(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userData = await getActivity({userId});
-                setData(userData);
+                const userActivity = await getActivity({userId});
+                setData(userActivity);
             } catch (error: any) {
                 setError(error);
             } finally {

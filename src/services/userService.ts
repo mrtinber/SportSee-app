@@ -45,16 +45,16 @@ export class InMemoryUser implements UserGateway {
         return {
             id: 12,
             userInfos: {
-                firstName: "Karl",
+                firstName: "Thomas",
                 lastName: "Dovineau",
                 age: 31,
             },
-            todayScore: 0.12,
+            todayScore: 0.72,
             keyData: {
-                calorieCount: 1930,
-                proteinCount: 155,
-                carbohydrateCount: 290,
-                lipidCount: 50,
+                calorieCount: 2530,
+                proteinCount: 386,
+                carbohydrateCount: 475,
+                lipidCount: 140,
             },
         };
     }
@@ -97,6 +97,21 @@ export class InMemoryUser implements UserGateway {
                     day: "2020-07-07",
                     kilogram: 76,
                     calories: 390
+                },
+                {
+                    day: "2020-07-08",
+                    kilogram: 75,
+                    calories: 130
+                },
+                {
+                    day: "2020-07-09",
+                    kilogram: 76,
+                    calories: 460
+                },
+                {
+                    day: "2020-07-10",
+                    kilogram: 75,
+                    calories: 370
                 }
             ]
         }
@@ -115,27 +130,27 @@ export class InMemoryUser implements UserGateway {
             },
             data: [
                 {
-                    value: 80,
+                    value: 140,
                     kind: 1
                 },
                 {
-                    value: 120,
+                    value: 180,
                     kind: 2
                 },
                 {
-                    value: 140,
+                    value: 80,
                     kind: 3
                 },
                 {
-                    value: 50,
+                    value: 150,
                     kind: 4
                 },
                 {
-                    value: 200,
+                    value: 160,
                     kind: 5
                 },
                 {
-                    value: 90,
+                    value: 190,
                     kind: 6
                 }
             ]
@@ -164,11 +179,11 @@ export class InMemoryUser implements UserGateway {
                 },
                 {
                     day: 5,
-                    sessionLength: 0
+                    sessionLength: 120
                 },
                 {
                     day: 6,
-                    sessionLength: 0
+                    sessionLength: 47
                 },
                 {
                     day: 7,

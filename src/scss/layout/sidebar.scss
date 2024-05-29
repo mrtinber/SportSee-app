@@ -1,0 +1,24 @@
+.sidebar {
+    width: 117px;
+    // height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    &_nav {
+        width: 100%;
+        padding: 0 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &_copyrights {
+        color: white;
+        rotate: 270deg;
+        white-space: nowrap;
+        font-size: 12px;
+    }
+}

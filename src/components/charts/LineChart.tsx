@@ -1,6 +1,7 @@
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line, Legend, Rectangle, YAxis } from "recharts"
 import { useState, useEffect } from "react"
 import { getSessions } from "../../usecases/getSessions";
+import { UserSessions } from "../../variables/types";
 
 const daysMap: { [key: number]: string } = {
     1: 'L',
@@ -12,30 +13,20 @@ const daysMap: { [key: number]: string } = {
     7: 'D'
 };
 
-type Sessions = {
-    day: number;
-    sessionLength: number
-};
-
-type UserData = {
-    userId: number;
-    sessions: Sessions[]
-};
-
 type LineChartComponentProps = {
     userId: number;
 }
 
 export function LineChartComponent({ userId }: LineChartComponentProps) {
-    const [data, setData] = useState<UserData | null>(null)
+    const [data, setData] = useState<UserSessions | null>(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userData = await getSessions({userId});
-                setData(userData);
+                const userSessions = await getSessions({userId});
+                setData(userSessions);
             } catch (error: any) {
                 setError(error);
             } finally {

@@ -4,7 +4,6 @@ type RadialChartComponentProps = {
     todayScore: number
 }
 
-
 export function RadialChartComponent({ todayScore }: RadialChartComponentProps) {
 
     const chartData = [{ name: "TodayScore", uv: todayScore * 100, max: 100 }];

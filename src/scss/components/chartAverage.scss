@@ -1,0 +1,41 @@
+.chart_average {
+    height: 263px;
+    width: 258px;
+    background: $red-main;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+
+    .tooltip {
+        background-color: white;
+        padding: 8px;
+
+        &_content {
+            color: black;
+            font-size: 8px;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+        }
+    }
+
+    .recharts-legend-wrapper {
+        position: static !important;
+    }
+
+    &_title {
+        font-size: 15px;
+        color: white;
+        opacity: 0.5;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+    }
+
+    .recharts-cartesian-axis-tick-value {
+        font-size: 12px;
+        color: white;
+        opacity: 0.5;
+        font-weight: 500;
+        z-index: 2000 !important;
+    }
+}

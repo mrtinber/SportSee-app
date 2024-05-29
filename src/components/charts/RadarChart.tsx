@@ -1,28 +1,14 @@
 import { useEffect, useState } from "react";
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart, ResponsiveContainer } from "recharts";
 import { getPerformance } from "../../usecases/getPerformance";
-
-type Kinds = {
-    [key: number]: string; 
-}
-
-type Data = {
-    value: number,
-    kind: number
-}
-
-type UserData = {
-    userId: number;
-    kind: Kinds;
-    data: Data[];
-};
+import { UserPerformance } from "../../variables/types";
 
 type RadarChartComponentProps = {
     userId: number;
 }
 
 export function RadarChartComponent({ userId }: RadarChartComponentProps) {
-    const [data, setData] = useState<UserData | null>(null)
+    const [data, setData] = useState<UserPerformance | null>(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
 

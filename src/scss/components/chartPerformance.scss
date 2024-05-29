@@ -1,0 +1,18 @@
+.chart_performance {
+    background: $darkgrey;
+    height: 263px;
+    width: 258px;
+    border-radius: 5px;
+    position: relative;
+    padding: 10px;
+
+    .recharts-polar-angle-axis-tick-value {
+        font-size: 12px;
+        font-weight: 500;
+        padding-top: 50px;
+    }
+
+    line.angleAxis {
+        display: none;
+    }
+}

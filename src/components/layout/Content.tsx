@@ -5,34 +5,14 @@ import { Aside } from "./Aside";
 import { BarChartComponent } from "../charts/BarChart";
 import { RadialChartComponent } from "../charts/RadialChart";
 import { getUser } from "../../usecases/getUser";
+import { User } from "../../variables/types";
 
-type UserInfos = {
-    firstName: string;
-    lastName: string;
-    age: number;
-};
-
-type KeyData = {
-    calorieCount: number;
-    proteinCount: number;
-    carbohydrateCount: number;
-    lipidCount: number;
-};
-
-type UserData = {
-    id: number;
-    userInfos: UserInfos;
-    todayScore?: number;
-    score?: number;
-    keyData: KeyData;
-};
-
-const normalizeScore = (data: UserData): number => {
+const normalizeScore = (data: User): number => {
     return data.todayScore !== undefined ? data.todayScore : data.score !== undefined ? data.score : 0;
 };
 
 export function Content() {
-    const [data, setData] = useState<UserData | null>(null)
+    const [data, setData] = useState<User | null>(null)
     const [userId, setUserId] = useState(12)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
