@@ -1,6 +1,6 @@
 .chart_average {
     height: 263px;
-    width: 258px;
+    width: calc((100% - 60px) / 3);
     background: $red-main;
     border-radius: 5px;
     position: relative;

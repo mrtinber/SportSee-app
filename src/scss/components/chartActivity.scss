@@ -1,0 +1,44 @@
+.content_container_charts_activity {
+    background-color: $grey-bg;
+    border-radius: 5px;
+    padding: 24px 32px;
+    height: 320px;
+    width: 100%;
+
+    .tooltip {
+        background: $red-bg;
+        padding: 10px 7px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        &_content {
+            color: white;
+            font-size: 8px;
+            font-family: 'Roboto', sans-serif;
+        }
+    }
+
+    .recharts-tooltip-cursor {
+        opacity: 0.5;
+    }
+
+    ul {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+
+        li {
+            span {
+                color: $grey-txt !important;
+            }
+        }
+    }
+
+    &_title {
+        position: absolute;
+        font-size: 15px;
+        color: $darkblue-txt;
+        font-weight: 500;
+    }
+}

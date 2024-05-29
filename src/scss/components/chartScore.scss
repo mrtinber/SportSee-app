@@ -1,6 +1,6 @@
 .chart_score {
     height: 263px;
-    width: 258px;
+    width: calc((100% - 60px) / 3);
     background: $grey-bg;
     border-radius: 5px;
     position: relative;
