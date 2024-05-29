@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart, ResponsiveContainer } from "recharts";
-
-const BASE_URL = 'http://localhost:3000'
+import { getPerformance } from "../../usecases/getPerformance";
 
 type Kinds = {
     [key: number]: string; 
@@ -30,12 +29,8 @@ export function RadarChartComponent({ userId }: RadarChartComponentProps) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${BASE_URL}/user/${userId}/performance`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                setData(result.data);
+                const userData = await getPerformance({userId});
+                setData(userData);
             } catch (error: any) {
                 setError(error);
             } finally {

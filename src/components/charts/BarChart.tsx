@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-
-const BASE_URL = 'http://localhost:3000'
+import { getActivity } from "../../usecases/getActivity";
 
 type BarChartComponentProps = {
     userId: number;
@@ -27,12 +26,8 @@ export function BarChartComponent({ userId }: BarChartComponentProps) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${BASE_URL}/user/${userId}/activity`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                setData(result.data);
+                const userData = await getActivity({userId});
+                setData(userData);
             } catch (error: any) {
                 setError(error);
             } finally {

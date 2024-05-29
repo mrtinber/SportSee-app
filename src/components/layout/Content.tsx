@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react"
-import { LineChartComponent } from "./LineChart";
-import { RadarChartComponent } from "./RadarChart";
+import { LineChartComponent } from "../charts/LineChart";
+import { RadarChartComponent } from "../charts/RadarChart";
 import { Aside } from "./Aside";
-import { BarChartComponent } from "./BarChart";
-import { RadialChartComponent } from "./RadialChart";
-
-const BASE_URL = 'http://localhost:3000'
+import { BarChartComponent } from "../charts/BarChart";
+import { RadialChartComponent } from "../charts/RadialChart";
+import { getUser } from "../../usecases/getUser";
 
 type UserInfos = {
     firstName: string;
@@ -44,16 +43,12 @@ export function Content() {
             setIsLoading(true)
             
             try {
-                const response = await fetch(`${BASE_URL}/user/${userId}`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                setData(result.data);
+                const userData = await getUser({userId});
+                setData(userData);
             } catch (error: any) {
                 setError(error);
             } finally {
-                setIsLoading(false)
+                setIsLoading(false);
             }
         };
         

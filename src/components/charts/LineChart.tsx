@@ -1,7 +1,6 @@
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line, Legend, Rectangle, YAxis } from "recharts"
 import { useState, useEffect } from "react"
-
-const BASE_URL = 'http://localhost:3000'
+import { getSessions } from "../../usecases/getSessions";
 
 const daysMap: { [key: number]: string } = {
     1: 'L',
@@ -35,12 +34,8 @@ export function LineChartComponent({ userId }: LineChartComponentProps) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${BASE_URL}/user/${userId}/average-sessions`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                setData(result.data);
+                const userData = await getSessions({userId});
+                setData(userData);
             } catch (error: any) {
                 setError(error);
             } finally {
