@@ -1,7 +1,9 @@
+import { UserGateway } from "./userGateway";
 import { BASE_URL } from "../variables/constants";
+import { User, UserActivity, UserPerformance, UserSessions } from "../variables/types";
 
-export class ApiUser {
-    async getUser({ userId }: { userId: number }) {
+export class ApiUser implements UserGateway {
+    async getUser({ userId }: { userId: number }): Promise<User> {
         const response = await fetch(`${BASE_URL}/user/${userId}`);
         if (!response.ok) {
             throw new Error('Network response was not ok')
@@ -10,7 +12,7 @@ export class ApiUser {
         return result.data
     }
 
-    async getActivity({ userId }: { userId: number }) {
+    async getActivity({ userId }: { userId: number }): Promise<UserActivity> {
         const response = await fetch(`${BASE_URL}/user/${userId}/activity`);
         if (!response.ok) {
             throw new Error('Network response was not ok')
@@ -19,7 +21,7 @@ export class ApiUser {
         return result.data
     }
 
-    async getPerformance({ userId }: { userId: number }) {
+    async getPerformance({ userId }: { userId: number }): Promise<UserPerformance> {
         const response = await fetch(`${BASE_URL}/user/${userId}/performance`);
         if (!response.ok) {
             throw new Error('Network response was not ok')
@@ -28,7 +30,7 @@ export class ApiUser {
         return result.data
     }
 
-    async getSessions({ userId }: { userId: number }) {
+    async getSessions({ userId }: { userId: number }): Promise<UserSessions> {
         const response = await fetch(`${BASE_URL}/user/${userId}/average-sessions`);
         if (!response.ok) {
             throw new Error('Network response was not ok')
@@ -38,8 +40,8 @@ export class ApiUser {
     }
 }
 
-export class InMemoryUser {
-    async getUser() {
+export class InMemoryUser implements UserGateway {
+    async getUser(): Promise<User> {
         return {
             id: 12,
             userInfos: {
@@ -57,7 +59,7 @@ export class InMemoryUser {
         };
     }
 
-    async getActivity() {
+    async getActivity(): Promise<UserActivity> {
         return {
             userId: 12,
             sessions: [
@@ -100,7 +102,7 @@ export class InMemoryUser {
         }
     }
 
-    async getPerformance() {
+    async getPerformance(): Promise<UserPerformance> {
         return {
             userId: 12,
             kind: {
@@ -140,7 +142,7 @@ export class InMemoryUser {
         }
     }
 
-    async getSessions() {
+    async getSessions(): Promise<UserSessions> {
         return {
             userId: 12,
             sessions: [

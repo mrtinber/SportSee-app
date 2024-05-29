@@ -1,6 +1,6 @@
 import { userLoader } from "../services/userLoader";
+import { UserActivity } from "../variables/types";
 
-export const getActivity = async ({userId}: {userId : number}) => {
-    const userGateway = userLoader();
-    return userGateway.getActivity({userId})
+export const getActivity = async ({userId}: {userId : number}): Promise<UserActivity> => {
+    return userLoader().getActivity({userId})
 }
