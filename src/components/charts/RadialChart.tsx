@@ -20,7 +20,7 @@ export function RadialChartComponent({ todayScore }: RadialChartComponentProps) 
                 endAngle={-180}
             >
                 <RadialBar background dataKey='max' fill="#fff" />
-                <RadialBar dataKey='uv' fill="red" />
+                <RadialBar dataKey='uv' fill="red" cornerRadius={50}/>
                 <Legend content={renderLegend} />
 
             </RadialBarChart>

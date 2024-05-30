@@ -7,6 +7,8 @@ type BarChartComponentProps = {
 
 export function BarChartComponent({ data }: BarChartComponentProps) {
 
+    const formatXAxisTick = (tick: number) => (tick + 1).toString();
+
     return (
         <>
         <div className="content_container_charts_activity_title">Activité quotidienne</div>
@@ -14,7 +16,7 @@ export function BarChartComponent({ data }: BarChartComponentProps) {
             <BarChart width={730} height={250} data={data.sessions} barGap={8}>
                 <YAxis dataKey="calories" yAxisId="left" hide />
                 <YAxis dataKey="kilogram" yAxisId="right" orientation="right" domain={['dataMin - 1', 'dataMax + 1']} tickCount={3} axisLine={false} tickLine={false} stroke="#9B9EAC" tickMargin={30} />
-                <XAxis tickLine={false} stroke="#9B9EAC" tickMargin={15}/>
+                <XAxis tickLine={false} stroke="#9B9EAC" tickMargin={15} tickFormatter={formatXAxisTick} />
                 <CartesianGrid strokeDasharray="3 2" vertical={false} stroke="#c4c4c4" opacity={0.5} />
                 <Tooltip content={<CustomTooltip />} offset={30} />
                 <Legend verticalAlign="top" iconType="circle" iconSize={8} align="right" height={80} />
