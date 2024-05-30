@@ -1,43 +1,11 @@
-import { useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { getActivity } from "../../usecases/getActivity";
-import { UserActivity } from "../../variables/types";
+import { UserActivity } from "../../domain/models/UserActivity";
 
 type BarChartComponentProps = {
-    userId: number;
+    data: UserActivity;
 }
 
-export function BarChartComponent({ userId }: BarChartComponentProps) {
-    const [data, setData] = useState<UserActivity | null>(null)
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const userActivity = await getActivity({userId});
-                setData(userActivity);
-            } catch (error: any) {
-                setError(error);
-            } finally {
-                setIsLoading(false)
-            }
-        };
-
-        fetchData();
-    }, [userId]);
-
-    if (isLoading) {
-        return <div>Chargement...</div>;
-    }
-
-    if (error) {
-        return <div>Oups! Quelque chose n'a pas fonctionné!</div>
-    }
-
-    if (!data) {
-        return <div>Aucune donnée trouvée</div>;
-    }
+export function BarChartComponent({ data }: BarChartComponentProps) {
 
     return (
         <>

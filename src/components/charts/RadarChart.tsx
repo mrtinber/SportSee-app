@@ -1,48 +1,13 @@
-import { useEffect, useState } from "react";
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart, ResponsiveContainer } from "recharts";
-import { getPerformance } from "../../usecases/getPerformance";
-import { UserPerformance } from "../../variables/types";
+import { UserPerformance } from "../../domain/models/UserPerformance";
+import { transformPerformanceData } from "../../domain/utils/transformPerformanceData";
 
 type RadarChartComponentProps = {
-    userId: number;
+    data: UserPerformance;
 }
 
-export function RadarChartComponent({ userId }: RadarChartComponentProps) {
-    const [data, setData] = useState<UserPerformance | null>(null)
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const userData = await getPerformance({userId});
-                setData(userData);
-            } catch (error: any) {
-                setError(error);
-            } finally {
-                setIsLoading(false)
-            }
-        };
-
-        fetchData();
-    }, [userId]);
-
-    if (isLoading) {
-        return <div>Chargement...</div>;
-    }
-
-    if (error) {
-        return <div>Oups! Quelque chose n'a pas fonctionné!</div>
-    }
-
-    if (!data) {
-        return <div>Aucune donnée trouvée</div>;
-    }
-
-    const convertedData = data.data.map(item => ({
-        value: item.value,
-        kind: data.kind[item.kind].charAt(0).toUpperCase() + data.kind[item.kind].slice(1)
-    }));
+export function RadarChartComponent({ data }: RadarChartComponentProps) {
+    const convertedData = transformPerformanceData(data);
 
     return (
         <ResponsiveContainer width="100%" height="100%">
