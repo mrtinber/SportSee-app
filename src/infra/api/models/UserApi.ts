@@ -1,4 +1,4 @@
-export type User = {
+export type UserApi = {
     id: number;
     userInfos: {
         firstName: string;

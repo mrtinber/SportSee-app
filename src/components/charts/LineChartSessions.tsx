@@ -1,13 +1,50 @@
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line, Legend, Rectangle, YAxis } from "recharts"
 import { UserSessions } from "../../domain/models/UserSessions";
 import { transformSessionsData } from "../../domain/utils/transformSessionsData";
+import { useEffect, useState } from "react";
+import { getSessions } from "../../domain/usecases/getSessions";
 
-type LineChartComponentProps = {
-    data: UserSessions;
+type LineChartSessionsProps = {
+    userId: number;
 }
 
-export function LineChartComponent({ data }: LineChartComponentProps) {
-    const sessionWithLetters = transformSessionsData(data)
+export function LineChartSessions({ userId }: LineChartSessionsProps) {
+
+    const [sessionsData, setSessionsData] = useState<UserSessions | null>(null)
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setIsLoading(true)
+
+            try {
+                const userSessions = await getSessions({ userId });
+                setSessionsData(userSessions);
+            } catch (error: any) {
+                setError(error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [userId]);
+
+    if (isLoading) {
+        return <div>Chargement...</div>;
+    }
+
+    if (error) {
+        return <div>Oups! Quelque chose n'a pas fonctionné!</div>
+    }
+
+    if (!sessionsData) {
+        return <div>Aucune donnée trouvée</div>;
+    }
+
+    const sessionWithLetters = transformSessionsData(sessionsData)
 
     return (
         <ResponsiveContainer width="100%" height="100%">

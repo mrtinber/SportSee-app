@@ -1,4 +1,4 @@
-export type UserPerformance = {
+export type UserPerformanceApi = {
     userId: number,
     kind: {
         [key: number]: string;

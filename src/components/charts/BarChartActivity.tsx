@@ -1,11 +1,45 @@
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { UserActivity } from "../../domain/models/UserActivity";
+import { useEffect, useState } from "react";
+import { getActivity } from "../../domain/usecases/getActivity";
 
-type BarChartComponentProps = {
-    data: UserActivity;
+type BarChartActivityProps = {
+    userId: number;
 }
 
-export function BarChartComponent({ data }: BarChartComponentProps) {
+export function BarChartActivity({ userId }: BarChartActivityProps) {
+    const [activityData, setActivityData] = useState<UserActivity | null>(null)
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setIsLoading(true)
+
+            try {
+                const userActivity = await getActivity({ userId });
+                setActivityData(userActivity);
+            } catch (error: any) {
+                setError(error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [userId]);
+
+    if (isLoading) {
+        return <div>Chargement...</div>;
+    }
+
+    if (error) {
+        return <div>Oups! Quelque chose n'a pas fonctionné!</div>
+    }
+
+    if (!activityData) {
+        return <div>Aucune donnée trouvée</div>;
+    }
 
     const formatXAxisTick = (tick: number) => (tick + 1).toString();
 
@@ -13,7 +47,7 @@ export function BarChartComponent({ data }: BarChartComponentProps) {
         <>
         <div className="content_container_charts_activity_title">Activité quotidienne</div>
         <ResponsiveContainer width="100%" height="100%">
-            <BarChart width={730} height={250} data={data.sessions} barGap={8}>
+            <BarChart width={730} height={250} data={activityData.sessions} barGap={8}>
                 <YAxis dataKey="calories" yAxisId="left" hide />
                 <YAxis dataKey="kilogram" yAxisId="right" orientation="right" domain={['dataMin - 1', 'dataMax + 1']} tickCount={3} axisLine={false} tickLine={false} stroke="#9B9EAC" tickMargin={30} />
                 <XAxis tickLine={false} stroke="#9B9EAC" tickMargin={15} tickFormatter={formatXAxisTick} />

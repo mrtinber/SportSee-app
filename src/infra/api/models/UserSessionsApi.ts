@@ -1,4 +1,4 @@
-export type UserSessions = {
+export type UserSessionsApi = {
     userId: number,
     sessions: UserSessionsArray[]
 }

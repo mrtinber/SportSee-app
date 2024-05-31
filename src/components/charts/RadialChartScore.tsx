@@ -1,10 +1,10 @@
 import { Legend, RadialBar, RadialBarChart, ResponsiveContainer } from "recharts";
 
-type RadialChartComponentProps = {
+type RadialChartScoreProps = {
     todayScore: number
 }
 
-export function RadialChartComponent({ todayScore }: RadialChartComponentProps) {
+export function RadialChartScore({ todayScore }: RadialChartScoreProps) {
 
     const chartData = [{ name: "TodayScore", uv: todayScore * 100, max: 100 }];
 

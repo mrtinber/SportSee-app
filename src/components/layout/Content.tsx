@@ -5,31 +5,22 @@ import { useEffect, useState } from "react"
 import { Aside } from "./Aside";
 
 //Charts
-import { LineChartComponent } from "../charts/LineChart";
-import { RadarChartComponent } from "../charts/RadarChart";
-import { BarChartComponent } from "../charts/BarChart";
-import { RadialChartComponent } from "../charts/RadialChart";
+import { LineChartSessions } from "../charts/LineChartSessions";
+import { RadarChartPerformance } from "../charts/RadarChartPerformance";
+import { BarChartActivity } from "../charts/BarChartActivity";
+import { RadialChartScore } from "../charts/RadialChartScore";
 
 // Usecases
 import { getUser } from "../../domain/usecases/getUser";
-import { getPerformance } from "../../domain/usecases/getPerformance";
-import { getSessions } from "../../domain/usecases/getSessions";
-import { getActivity } from "../../domain/usecases/getActivity";
 
 //Models
 import { User } from "../../domain/models/User";
-import { UserPerformance } from "../../domain/models/UserPerformance";
-import { UserSessions } from "../../domain/models/UserSessions";
-import { UserActivity } from "../../domain/models/UserActivity";
 
 // Utils
 import { scoreInPercentage } from "../../domain/utils/scoreInPercentage";
 
 export function Content() {
-    const [data, setData] = useState<User | null>(null)
-    const [performanceData, setPerformanceData] = useState<UserPerformance | null>(null)
-    const [sessionsData, setSessionsData] = useState<UserSessions | null>(null)
-    const [activityData, setActivityData] = useState<UserActivity | null>(null)
+    const [user, setUser] = useState<User | null>(null)
     const [userId, setUserId] = useState(12)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
@@ -41,13 +32,7 @@ export function Content() {
 
             try {
                 const userData = await getUser({ userId });
-                setData(userData);
-                const userPerformance = await getPerformance({ userId });
-                setPerformanceData(userPerformance);
-                const userSessions = await getSessions({ userId });
-                setSessionsData(userSessions);
-                const userActivity = await getActivity({ userId });
-                setActivityData(userActivity);
+                setUser(userData);
             } catch (error: any) {
                 setError(error);
             } finally {
@@ -66,7 +51,7 @@ export function Content() {
         return <div>Oups! Quelque chose n'a pas fonctionné!</div>
     }
 
-    if (!data || !performanceData || !sessionsData || !activityData) {
+    if (!user) {
         return <div>Aucune donnée trouvée</div>;
     }
 
@@ -78,36 +63,36 @@ export function Content() {
         }
     };
 
-    const normalizedScore = scoreInPercentage(data)
+    const normalizedScore = scoreInPercentage(user)
 
     return <div className="content">
         <div className='content_welcome'>
-            <h1>Bonjour <span>{data.userInfos.firstName}</span></h1>
+            <h1>Bonjour <span>{user.userInfos.firstName}</span></h1>
             <p>Félicitations! Vous avez explosé vos objectifs hier 👏</p>
             <button onClick={handleChangeUser}>Changer d'utilisateur</button>
         </div>
         <div className="content_container">
             <div className="content_container_charts">
                 <div className="content_container_charts_activity">
-                    <BarChartComponent data={activityData} />
+                    <BarChartActivity userId={userId} />
                 </div>
                 <div className="content_container_charts_row">
                     <div className="chart_average">
-                        <LineChartComponent data={sessionsData} />
+                        <LineChartSessions userId={userId} />
                     </div>
                     <div className="chart_performance">
-                        <RadarChartComponent data={performanceData} />
+                        <RadarChartPerformance userId={userId} />
                     </div>
                     <div className="chart_score">
-                        <RadialChartComponent todayScore={normalizedScore} />
+                        <RadialChartScore todayScore={normalizedScore} />
                     </div>
                 </div>
             </div>
             <Aside
-                calories={data.keyData.calorieCount}
-                proteins={data.keyData.proteinCount}
-                carbs={data.keyData.carbohydrateCount}
-                lipids={data.keyData.lipidCount}
+                calories={user.keyData.calorieCount}
+                proteins={user.keyData.proteinCount}
+                carbs={user.keyData.carbohydrateCount}
+                lipids={user.keyData.lipidCount}
             />
         </div>
     </div>
