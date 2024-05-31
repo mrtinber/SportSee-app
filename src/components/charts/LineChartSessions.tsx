@@ -1,6 +1,5 @@
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line, Legend, Rectangle, YAxis } from "recharts"
 import { UserSessions } from "../../domain/models/UserSessions";
-import { transformSessionsData } from "../../domain/utils/transformSessionsData";
 import { useEffect, useState } from "react";
 import { getSessions } from "../../domain/usecases/getSessions";
 
@@ -44,11 +43,9 @@ export function LineChartSessions({ userId }: LineChartSessionsProps) {
         return <div>Aucune donnée trouvée</div>;
     }
 
-    const sessionWithLetters = transformSessionsData(sessionsData)
-
     return (
         <ResponsiveContainer width="100%" height="100%">
-            <LineChart width={500} height={400} data={sessionWithLetters} margin={{
+            <LineChart width={500} height={400} data={sessionsData.sessions} margin={{
                 top: 0,
                 right: 20,
                 left: 20,

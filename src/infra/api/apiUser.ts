@@ -1,18 +1,25 @@
-import { UserGateway } from "../../domain/userGateway";
 import { BASE_URL } from "../../variables/constants";
-import { User } from "../../domain/models/User";
 import { UserActivity } from "../../domain/models/UserActivity";
-import { UserPerformance } from "../../domain/models/UserPerformance";
 import { UserSessions } from "../../domain/models/UserSessions";
+import { UserApi } from "./models/UserApi";
+import { UserGatewayApi } from "./userGatewayApi";
+import { normalizeScore } from "./mappers/normalizeScore";
+import { UserPerformanceApi } from "./models/UserPerformanceApi";
+import { transformPerformanceData } from "./mappers/transformPerformanceData";
+import { UserPerformance } from "../../domain/models/UserPerformance";
+import { transformSessionsData } from "./mappers/transformSessionsData";
+import { UserSessionsApi } from "./models/UserSessionsApi";
+import { User } from "../../domain/models/User";
 
-export class ApiUser implements UserGateway {
+export class ApiUser implements UserGatewayApi {
     async getUser({ userId }: { userId: number }): Promise<User> {
         const response = await fetch(`${BASE_URL}/user/${userId}`);
         if (!response.ok) {
-            throw new Error(`Network issue: ${response.status}`)
+            throw new Error(`Network issue: ${response.status}`);
         }
-        const result = await response.json();
-        return result.data
+        const { data }: { data: UserApi } = await response.json();
+
+        return normalizeScore(data);
     }
 
     async getActivity({ userId }: { userId: number }): Promise<UserActivity> {
@@ -29,8 +36,9 @@ export class ApiUser implements UserGateway {
         if (!response.ok) {
             throw new Error(`Network issue: ${response.status}`)
         }
-        const result = await response.json();
-        return result.data
+        const {data} : {data: UserPerformanceApi} = await response.json();
+
+        return transformPerformanceData(data)
     }
 
     async getSessions({ userId }: { userId: number }): Promise<UserSessions> {
@@ -38,7 +46,8 @@ export class ApiUser implements UserGateway {
         if (!response.ok) {
             throw new Error(`Network issue: ${response.status}`)
         }
-        const result = await response.json();
-        return result.data
+        const {data} : {data: UserSessionsApi} = await response.json();
+
+        return transformSessionsData(data)
     }
 }

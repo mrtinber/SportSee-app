@@ -41,8 +41,6 @@ export function BarChartActivity({ userId }: BarChartActivityProps) {
         return <div>Aucune donnée trouvée</div>;
     }
 
-    const formatXAxisTick = (tick: number) => (tick + 1).toString();
-
     return (
         <>
         <div className="content_container_charts_activity_title">Activité quotidienne</div>
@@ -79,3 +77,5 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
     }
     return null;
 };
+
+const formatXAxisTick = (tick: number) => (tick + 1).toString();

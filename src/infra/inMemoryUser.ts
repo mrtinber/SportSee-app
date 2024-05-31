@@ -84,38 +84,30 @@ export class InMemoryUser implements UserGateway {
     async getPerformance(): Promise<UserPerformance> {
         return {
             userId: 12,
-            kind: {
-                1: "cardio",
-                2: "energy",
-                3: "endurance",
-                4: "strength",
-                5: "speed",
-                6: "intensity"
-            },
             data: [
                 {
                     value: 140,
-                    kind: 1
+                    kind: "Cardio"
                 },
                 {
                     value: 180,
-                    kind: 2
+                    kind: "Energie"
                 },
                 {
                     value: 80,
-                    kind: 3
+                    kind: "Endurance"
                 },
                 {
                     value: 150,
-                    kind: 4
+                    kind: "Force"
                 },
                 {
                     value: 160,
-                    kind: 5
+                    kind: "Vitesse"
                 },
                 {
                     value: 190,
-                    kind: 6
+                    kind: "Intensité"
                 }
             ]
         }
@@ -126,31 +118,31 @@ export class InMemoryUser implements UserGateway {
             userId: 12,
             sessions: [
                 {
-                    day: 1,
+                    day: 'L',
                     sessionLength: 30
                 },
                 {
-                    day: 2,
+                    day: 'M',
                     sessionLength: 23
                 },
                 {
-                    day: 3,
+                    day: 'M',
                     sessionLength: 45
                 },
                 {
-                    day: 4,
+                    day: 'J',
                     sessionLength: 50
                 },
                 {
-                    day: 5,
+                    day: 'V',
                     sessionLength: 120
                 },
                 {
-                    day: 6,
+                    day: 'S',
                     sessionLength: 47
                 },
                 {
-                    day: 7,
+                    day: 'D',
                     sessionLength: 60
                 }
             ]

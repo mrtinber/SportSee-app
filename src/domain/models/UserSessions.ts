@@ -4,6 +4,6 @@ export type UserSessions = {
 }
 
 export type UserSessionsArray = {
-    day: number,
+    day: string,
     sessionLength: number
 }

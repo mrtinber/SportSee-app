@@ -3,10 +3,10 @@ export type UserPerformanceApi = {
     kind: {
         [key: number]: string;
     },
-    data: UserPerformanceData[]
+    data: UserPerformanceApiData[]
 }
 
-export type UserPerformanceData = {
+export type UserPerformanceApiData = {
     value: number,
     kind: number
 }

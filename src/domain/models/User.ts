@@ -5,8 +5,7 @@ export type User = {
         lastName: string;
         age: number;
     };
-    todayScore?: number;
-    score?: number;
+    todayScore: number;
     keyData: UserKeyData
 };
 

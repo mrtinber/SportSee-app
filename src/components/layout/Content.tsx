@@ -16,9 +16,6 @@ import { getUser } from "../../domain/usecases/getUser";
 //Models
 import { User } from "../../domain/models/User";
 
-// Utils
-import { scoreInPercentage } from "../../domain/utils/scoreInPercentage";
-
 export function Content() {
     const [user, setUser] = useState<User | null>(null)
     const [userId, setUserId] = useState(12)
@@ -63,8 +60,6 @@ export function Content() {
         }
     };
 
-    const normalizedScore = scoreInPercentage(user)
-
     return <div className="content">
         <div className='content_welcome'>
             <h1>Bonjour <span>{user.userInfos.firstName}</span></h1>
@@ -84,7 +79,7 @@ export function Content() {
                         <RadarChartPerformance userId={userId} />
                     </div>
                     <div className="chart_score">
-                        <RadialChartScore todayScore={normalizedScore} />
+                        <RadialChartScore todayScore={user.todayScore} />
                     </div>
                 </div>
             </div>
