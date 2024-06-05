@@ -1,33 +1,12 @@
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { UserActivity } from "../../domain/models/UserActivity";
-import { useEffect, useState } from "react";
-import { getActivity } from "../../domain/usecases/getActivity";
+import { useFetchActivity } from "../../hooks/useFetchActivity";
 
 type BarChartActivityProps = {
     userId: number;
 }
 
 export function BarChartActivity({ userId }: BarChartActivityProps) {
-    const [activityData, setActivityData] = useState<UserActivity | null>(null)
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true)
-
-            try {
-                const userActivity = await getActivity({ userId });
-                setActivityData(userActivity);
-            } catch (error: any) {
-                setError(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [userId]);
+    const {activityData, isLoading, error} = useFetchActivity(userId);
 
     if (isLoading) {
         return <div>Chargement...</div>;

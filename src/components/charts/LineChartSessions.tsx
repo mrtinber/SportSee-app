@@ -1,35 +1,12 @@
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line, Legend, Rectangle, YAxis } from "recharts"
-import { UserSessions } from "../../domain/models/UserSessions";
-import { useEffect, useState } from "react";
-import { getSessions } from "../../domain/usecases/getSessions";
+import { useFetchSessions } from "../../hooks/useFetchSessions";
 
 type LineChartSessionsProps = {
     userId: number;
 }
 
 export function LineChartSessions({ userId }: LineChartSessionsProps) {
-
-    const [sessionsData, setSessionsData] = useState<UserSessions | null>(null)
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState();
-
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true)
-
-            try {
-                const userSessions = await getSessions({ userId });
-                setSessionsData(userSessions);
-            } catch (error: any) {
-                setError(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [userId]);
+    const {sessionsData, isLoading, error} = useFetchSessions(userId)
 
     if (isLoading) {
         return <div>Chargement...</div>;

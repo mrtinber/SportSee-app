@@ -1,5 +1,5 @@
 //React
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 //Components
 import { Aside } from "./Aside";
@@ -10,35 +10,12 @@ import { RadarChartPerformance } from "../charts/RadarChartPerformance";
 import { BarChartActivity } from "../charts/BarChartActivity";
 import { RadialChartScore } from "../charts/RadialChartScore";
 
-// Usecases
-import { getUser } from "../../domain/usecases/getUser";
-
 //Models
-import { User } from "../../domain/models/User";
+import { useFetchUser } from "../../hooks/useFetchUser";
 
 export function Content() {
-    const [user, setUser] = useState<User | null>(null)
     const [userId, setUserId] = useState(12)
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState();
-
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true)
-
-            try {
-                const userData = await getUser({ userId });
-                setUser(userData);
-            } catch (error: any) {
-                setError(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [userId]);
+    const { user, isLoading, error } = useFetchUser(userId)
 
     if (isLoading) {
         return <div>Chargement...</div>;
@@ -62,9 +39,11 @@ export function Content() {
 
     return <div className="content">
         <div className='content_welcome'>
-            <h1>Bonjour <span>{user.userInfos.firstName}</span></h1>
+            <div className='content_welcome_row'>
+                <h1>Bonjour <span>{user.userInfos.firstName}</span></h1>
+                <button onClick={handleChangeUser}>Changer d'utilisateur</button>
+            </div>
             <p>Félicitations! Vous avez explosé vos objectifs hier 👏</p>
-            <button onClick={handleChangeUser}>Changer d'utilisateur</button>
         </div>
         <div className="content_container">
             <div className="content_container_charts">

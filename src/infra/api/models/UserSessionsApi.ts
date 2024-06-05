@@ -1,9 +1,9 @@
 export type UserSessionsApi = {
     userId: number,
-    sessions: UserSessionsArray[]
+    sessions: UserSession[]
 }
 
-export type UserSessionsArray = {
+export type UserSession = {
     day: number,
     sessionLength: number
 }

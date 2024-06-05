@@ -1,33 +1,12 @@
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart, ResponsiveContainer } from "recharts";
-import { UserPerformance } from "../../domain/models/UserPerformance";
-import { useEffect, useState } from "react";
-import { getPerformance } from "../../domain/usecases/getPerformance";
+import { useFetchPerformance } from "../../hooks/useFetchPerformance";
 
 type RadarChartPerformanceProps = {
     userId: number;
 }
 
 export function RadarChartPerformance({ userId }: RadarChartPerformanceProps) {
-    const [performanceData, setPerformanceData] = useState<UserPerformance | null>(null)
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState();
-
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true)
-            try {
-                const userPerformance = await getPerformance({ userId });
-                setPerformanceData(userPerformance);
-            } catch (error: any) {
-                setError(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [userId]);
+    const {performanceData, isLoading, error} = useFetchPerformance(userId)
 
     if (isLoading) {
         return <div>Chargement...</div>;

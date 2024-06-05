@@ -8,13 +8,20 @@ main {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 75px;
         justify-content: space-between;
 
         &_welcome {
             display: flex;
             flex-direction: column;
             gap: 35px;
+
+            &_row{
+                display:flex;
+                flex-direction: row;
+                gap: 50px;
+                align-items: center;
+            }
 
             h1 {
                 font-size: 48px;
@@ -31,7 +38,8 @@ main {
 
             button {
                 border-radius: 25px;
-                width: 100px;
+                width: 150px;
+                height: 30px;
                 border: none;
                 background-color: $red-bg;
                 color: white;

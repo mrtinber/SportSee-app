@@ -1,7 +1,9 @@
 import { UserPerformance } from "../../../domain/models/UserPerformance";
 import { UserPerformanceApi, UserPerformanceApiData } from "../models/UserPerformanceApi";
 
-export function transformPerformanceData(data: UserPerformanceApi): UserPerformance {
+type transformPerformanceDataFn = (data:UserPerformanceApi) => UserPerformance
+
+export const transformPerformanceData: transformPerformanceDataFn = (data) => {
     const transformedData = data.data.map((item: UserPerformanceApiData) => {
         const kindString = data.kind[item.kind];
         return {
