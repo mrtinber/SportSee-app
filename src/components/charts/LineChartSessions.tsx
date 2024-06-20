@@ -33,7 +33,7 @@ export function LineChartSessions({ userId }: LineChartSessionsProps) {
                 <Legend content={renderLegend} />
                 <Tooltip content={<CustomTooltip />} cursor={<CustomCursor points={[{ x: 0, y: 0 }, { x: 0, y: 0 }]} width={500} height={400} stroke="#ff0000" />} />
 
-                <Line dataKey='sessionLength' type="monotone" stroke="#ffffff" strokeWidth={2} dot={false}/>
+                <Line dataKey='sessionLength' type='natural' stroke="#ffffff" strokeWidth={2} dot={false}/>
             </LineChart>
         </ResponsiveContainer>
     );

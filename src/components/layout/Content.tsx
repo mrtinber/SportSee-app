@@ -18,15 +18,15 @@ export function Content() {
     const { user, isLoading, error } = useFetchUser(userId)
 
     if (isLoading) {
-        return <div>Chargement...</div>;
+        return <div className="content_message">Chargement...</div>;
     }
 
     if (error) {
-        return <div>Oups! Quelque chose n'a pas fonctionné!</div>
+        return <div className="content_message">Oups! Quelque chose n'a pas fonctionné!</div>
     }
 
     if (!user) {
-        return <div>Aucune donnée trouvée</div>;
+        return <div className="content_message">Aucune donnée trouvée</div>;
     }
 
     function handleChangeUser() {

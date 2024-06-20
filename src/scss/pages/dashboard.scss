@@ -11,13 +11,17 @@ main {
         gap: 75px;
         justify-content: space-between;
 
+        &_message {
+            height: 100vh;
+        }
+
         &_welcome {
             display: flex;
             flex-direction: column;
             gap: 35px;
 
-            &_row{
-                display:flex;
+            &_row {
+                display: flex;
                 flex-direction: row;
                 gap: 50px;
                 align-items: center;
@@ -103,6 +107,22 @@ aside {
     main {
         .content {
             padding: 30px 25px;
+
+            &_container {
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+
+        aside {
+            flex-direction: row;
+            width: 100%;
+            gap: 10px;
+
+            .aside_container {
+                width: calc((100% - 30px) / 4);
+                padding: 15px;
+            }
         }
     }
 }
