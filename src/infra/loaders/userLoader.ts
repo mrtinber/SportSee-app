@@ -1,6 +1,6 @@
-import { SOURCE } from "../variables/constants";
-import { ApiUser } from "./api/apiUser";
-import { InMemoryUser } from "./inMemoryUser";
+import { SOURCE } from "../constants/api";
+import { ApiUser } from "../gateways/apiUser";
+import { InMemoryUser } from "../inmemory/inMemoryUser";
 
 export const userLoader = () => {
     switch (SOURCE) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getPerformance } from "../domain/usecases/getPerformance";
-import { UserPerformance } from "../domain/models/UserPerformance";
+import { getPerformance } from "../../application/usecases/getPerformance";
+import { UserPerformance } from "../../domain/types/UserPerformance";
 
 export function useFetchPerformance(userId: number) {
     const [performanceData, setPerformanceData] = useState<UserPerformance | null>(null)

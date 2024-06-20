@@ -5,13 +5,13 @@ import { useState } from "react"
 import { Aside } from "./Aside";
 
 //Charts
-import { LineChartSessions } from "../charts/LineChartSessions";
-import { RadarChartPerformance } from "../charts/RadarChartPerformance";
-import { BarChartActivity } from "../charts/BarChartActivity";
-import { RadialChartScore } from "../charts/RadialChartScore";
+import { LineChartSessions } from "../components/charts/LineChartSessions";
+import { RadarChartPerformance } from "../components/charts/RadarChartPerformance";
+import { BarChartActivity } from "../components/charts/BarChartActivity";
+import { RadialChartScore } from "../components/charts/RadialChartScore";
 
 //Models
-import { useFetchUser } from "../../hooks/useFetchUser";
+import { useFetchUser } from "../hooks/useFetchUser";
 
 export function Content() {
     const [userId, setUserId] = useState(12)

@@ -1,7 +1,7 @@
-import { Content } from './components/layout/Content'
-import { MainNav } from './components/layout/MainNav'
-import { Sidebar } from './components/layout/Sidebar'
-import './scss/main.scss'
+import { Content } from './presentation/layout/Content'
+import { MainNav } from './presentation/layout/MainNav'
+import { Sidebar } from './presentation/layout/Sidebar'
+import './presentation/scss/main.scss'
 
 function App() {
   return (

@@ -1,15 +1,17 @@
-import { BASE_URL } from "../../variables/constants";
-import { UserActivity } from "../../domain/models/UserActivity";
-import { UserSessions } from "../../domain/models/UserSessions";
-import { UserApi } from "./models/UserApi";
+import { BASE_URL } from "../constants/api";
+import { UserActivity } from "../../domain/types/UserActivity";
+import { UserSessions } from "../../domain/types/UserSessions";
+import { UserApi } from "../api/types/UserApi";
 import { UserGatewayApi } from "./userGatewayApi";
-import { normalizeScore } from "./mappers/normalizeScore";
-import { UserPerformanceApi } from "./models/UserPerformanceApi";
-import { transformPerformanceData } from "./mappers/transformPerformanceData";
-import { UserPerformance } from "../../domain/models/UserPerformance";
-import { transformSessionsData } from "./mappers/transformSessionsData";
-import { UserSessionsApi } from "./models/UserSessionsApi";
-import { User } from "../../domain/models/User";
+import { UserPerformanceApi } from "../api/types/UserPerformanceApi";
+import { UserPerformance } from "../../domain/types/UserPerformance";
+import { UserSessionsApi } from "../api/types/UserSessionsApi";
+import { User } from "../../domain/types/User";
+import { UserActivityModel } from "../../domain/models/UserActivityModel";
+import { UserModel } from "../../domain/models/UserModel";
+import { UserSessionsModel } from "../../domain/models/UserSessionsModel";
+import { UserPeformanceModel } from "../../domain/models/UserPerformanceModel";
+import { UserActivityApi } from "../api/types/UserActivityApi";
 
 export class ApiUser implements UserGatewayApi {
     async getUser({ userId }: { userId: number }): Promise<User> {
@@ -19,16 +21,17 @@ export class ApiUser implements UserGatewayApi {
         }
         const { data }: { data: UserApi } = await response.json();
 
-        return normalizeScore(data);
+        return new UserModel(data);
     }
 
     async getActivity({ userId }: { userId: number }): Promise<UserActivity> {
         const response = await fetch(`${BASE_URL}/user/${userId}/activity`);
         if (!response.ok) {
-            throw new Error(`Network issue: ${response.status}`)
+            throw new Error(`Network issue: ${response.status}`);
         }
-        const result = await response.json();
-        return result.data
+        const { data }: { data: UserActivityApi } = await response.json();
+
+        return new UserActivityModel(data);
     }
 
     async getPerformance({ userId }: { userId: number }): Promise<UserPerformance> {
@@ -38,7 +41,7 @@ export class ApiUser implements UserGatewayApi {
         }
         const {data} : {data: UserPerformanceApi} = await response.json();
 
-        return transformPerformanceData(data)
+        return new UserPeformanceModel(data)
     }
 
     async getSessions({ userId }: { userId: number }): Promise<UserSessions> {
@@ -48,6 +51,6 @@ export class ApiUser implements UserGatewayApi {
         }
         const {data} : {data: UserSessionsApi} = await response.json();
 
-        return transformSessionsData(data)
+        return new UserSessionsModel(data)
     }
 }

@@ -1,7 +1,7 @@
-import { User } from "./models/User";
-import { UserActivity } from "./models/UserActivity";
-import { UserPerformance } from "./models/UserPerformance";
-import { UserSessions } from "./models/UserSessions";
+import { User } from "../../domain/types/User";
+import { UserActivity } from "../../domain/types/UserActivity";
+import { UserPerformance } from "../../domain/types/UserPerformance";
+import { UserSessions } from "../../domain/types/UserSessions";
 
 export interface UserGateway {
     getUser({ userId }: { userId: number }): Promise<User>;

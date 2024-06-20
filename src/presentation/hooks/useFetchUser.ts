@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getUser } from "../domain/usecases/getUser";
-import { User } from "../domain/models/User";
+import { getUser } from "../../application/usecases/getUser";
+import { User } from "../../domain/types/User";
 
 export function useFetchUser(userId: number) {
     const [user, setUser] = useState<User | null>(null)

@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { getActivity } from "../domain/usecases/getActivity";
-import { UserActivity } from "../domain/models/UserActivity";
+import { getSessions } from "../../application/usecases/getSessions";
+import { UserSessions } from "../../domain/types/UserSessions";
 
-export function useFetchActivity(userId: number) {
-
-    const [activityData, setActivityData] = useState<UserActivity | null>(null)
+export function useFetchSessions(userId: number) {
+    const [sessionsData, setSessionsData] = useState<UserSessions | null>(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
 
@@ -13,8 +12,8 @@ export function useFetchActivity(userId: number) {
             setIsLoading(true)
 
             try {
-                const userActivity = await getActivity({ userId });
-                setActivityData(userActivity);
+                const userSessions = await getSessions({ userId });
+                setSessionsData(userSessions);
             } catch (error: any) {
                 setError(error);
             } finally {
@@ -25,5 +24,5 @@ export function useFetchActivity(userId: number) {
         fetchData();
     }, [userId]);
 
-    return {activityData, isLoading, error}
+    return {sessionsData, isLoading, error}
 }

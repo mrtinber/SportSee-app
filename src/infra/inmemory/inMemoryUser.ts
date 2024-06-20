@@ -1,8 +1,8 @@
-import { User } from "../domain/models/User";
-import { UserActivity } from "../domain/models/UserActivity";
-import { UserPerformance } from "../domain/models/UserPerformance";
-import { UserSessions } from "../domain/models/UserSessions";
-import { UserGateway } from "../domain/userGateway";
+import { User } from "../../domain/types/User";
+import { UserActivity } from "../../domain/types/UserActivity";
+import { UserPerformance } from "../../domain/types/UserPerformance";
+import { UserSessions } from "../../domain/types/UserSessions";
+import { UserGateway } from "../gateways/userGateway";
 
 export class InMemoryUser implements UserGateway {
     async getUser(): Promise<User> {
