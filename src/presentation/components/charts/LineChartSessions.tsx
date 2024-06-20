@@ -24,12 +24,12 @@ export function LineChartSessions({ userId }: LineChartSessionsProps) {
         <ResponsiveContainer width="100%" height="100%">
             <LineChart width={500} height={400} data={sessionsData.sessions} margin={{
                 top: 0,
-                right: 20,
-                left: 20,
+                right: -10,
+                left: -10,
                 bottom: 15,
             }}>
                 <XAxis dataKey="day" stroke="#fff" axisLine={false} tickLine={false} />
-                <YAxis hide domain={[0, 'dataMax + 20']}/>
+                <YAxis hide domain={[0, 'dataMax + 20']} padding={{bottom: 25}}/>
                 <Legend content={renderLegend} />
                 <Tooltip content={<CustomTooltip />} cursor={<CustomCursor points={[{ x: 0, y: 0 }, { x: 0, y: 0 }]} width={500} height={400} stroke="#ff0000" />} />
 

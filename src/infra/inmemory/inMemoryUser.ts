@@ -118,6 +118,10 @@ export class InMemoryUser implements UserGateway {
             userId: 12,
             sessions: [
                 {
+                    day: '',
+                    sessionLength: 30
+                },
+                {
                     day: 'L',
                     sessionLength: 30
                 },
@@ -144,6 +148,10 @@ export class InMemoryUser implements UserGateway {
                 {
                     day: 'D',
                     sessionLength: 60
+                },
+                {
+                    day: '',
+                    sessionLength: 30
                 }
             ]
         }
