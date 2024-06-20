@@ -6,7 +6,7 @@ type LineChartSessionsProps = {
 }
 
 export function LineChartSessions({ userId }: LineChartSessionsProps) {
-    const {sessionsData, isLoading, error} = useFetchSessions(userId)
+    const { sessionsData, isLoading, error } = useFetchSessions(userId)
 
     if (isLoading) {
         return <div>Chargement...</div>;
@@ -29,11 +29,11 @@ export function LineChartSessions({ userId }: LineChartSessionsProps) {
                 bottom: 15,
             }}>
                 <XAxis dataKey="day" stroke="#fff" axisLine={false} tickLine={false} />
-                <YAxis hide domain={[0, 'dataMax + 20']} padding={{bottom: 25}}/>
+                <YAxis hide domain={[0, 'dataMax + 20']} padding={{ bottom: 25 }} />
                 <Legend content={renderLegend} />
                 <Tooltip content={<CustomTooltip />} cursor={<CustomCursor points={[{ x: 0, y: 0 }, { x: 0, y: 0 }]} width={500} height={400} stroke="#ff0000" />} />
 
-                <Line dataKey='sessionLength' type='natural' stroke="#ffffff" strokeWidth={2} dot={false}/>
+                <Line dataKey='sessionLength' type='natural' stroke="#ffffff" strokeWidth={2} dot={false} />
             </LineChart>
         </ResponsiveContainer>
     );

@@ -2,9 +2,9 @@ import { User } from "../../domain/types/User";
 import { UserActivity } from "../../domain/types/UserActivity";
 import { UserPerformance } from "../../domain/types/UserPerformance";
 import { UserSessions } from "../../domain/types/UserSessions";
-import { UserGateway } from "../gateways/userGateway";
+import { IUserGateway } from "../gateways/IUserGateway";
 
-export class InMemoryUser implements UserGateway {
+export class InMemoryUser implements IUserGateway {
     async getUser(): Promise<User> {
         return {
             id: 12,

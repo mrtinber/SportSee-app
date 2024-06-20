@@ -2,7 +2,7 @@ import { BASE_URL } from "../constants/api";
 import { UserActivity } from "../../domain/types/UserActivity";
 import { UserSessions } from "../../domain/types/UserSessions";
 import { UserApi } from "../api/types/UserApi";
-import { UserGatewayApi } from "./userGatewayApi";
+import { IUserGateway } from "./IUserGateway";
 import { UserPerformanceApi } from "../api/types/UserPerformanceApi";
 import { UserPerformance } from "../../domain/types/UserPerformance";
 import { UserSessionsApi } from "../api/types/UserSessionsApi";
@@ -13,7 +13,7 @@ import { UserSessionsModel } from "../../domain/models/UserSessionsModel";
 import { UserPeformanceModel } from "../../domain/models/UserPerformanceModel";
 import { UserActivityApi } from "../api/types/UserActivityApi";
 
-export class ApiUser implements UserGatewayApi {
+export class ApiUser implements IUserGateway {
     async getUser({ userId }: { userId: number }): Promise<User> {
         const response = await fetch(`${BASE_URL}/user/${userId}`);
         if (!response.ok) {
